@@ -160,42 +160,6 @@ enroll_promise
 	}
 
 })
-.then(() =>
-{
-	// create a new verifier using the admin object
-
-	var fs      = require("fs");
-	var path    = require("path");
-	var os 	    = require("os");
-
-	// Extract data from the config files for the network
-
-	helper = {};
-	// read the creds file
-	const creds_name = "config.json";
-	const creds_path = path.join(__dirname, creds_name);
-	helper.creds = require(creds_path);
-	function get_ca_url()
-	{
-		return helper.creds.credentials.cas[0].api;
-	}
-
-
-
-	// Orderers, Peers , Ca all have the same tls cert
-	function get_tls_cert()
-	{
-		return helper.creds.credentials.tls_certificates.cert_1.pem;
-	}
-
-
-	var ca_service = require("fabric-ca-client/lib/FabricCAClientImpl.js");
-	var hfc = require("fabric-client");
-	var hfc_user = require("fabric-client/lib/User.js");
-
-
-
-})
 .catch((err) =>
 {
 	console.log(err);
@@ -208,7 +172,6 @@ enroll_promise
 // create verifiers
 
 
-/*
 var fs      = require("fs");
 var path    = require("path");
 var os 	    = require("os");
@@ -291,12 +254,6 @@ var ca_client = new ca_service(get_ca_url() , tls_options);
 // 	-> create user promies
 
 var admin_ca, e_results;
-///*
-var hfc_local_msp = require('fabric-ca-client/lib/msp/msp.js');
-var hfc_id_module = require('fabric-ca-client/lib/msp/identity.js');
-var hfc_signing_idenity  = idModule.SigningIdentity;
-var hfc_signer = idModule.Signer;
-//
 
 ca_client.enroll(admin_enroll_param) 
 .then((enrollment) =>
@@ -337,7 +294,9 @@ ca_client.enroll(admin_enroll_param)
 		      });
 
 	var signing_identity = hfc_signing_idenity(e_results.certificate , pub_key , msp.getId() , msp.cryptoSuite, new hfc_signer(msp.cryptoSuite , e_results.key));
-	var req = { "enrollmentID" : "verifiers1" , "enrollmentSecret" : null, "role" : "client" ,  "affiliation" : "group_1"};
+	*/
+	var req = { "enrollmentID" : "verifiers1" , "enrollmentSecret" : null, "role" : "client" ,  "affiliation" : "group1"};
+
 	// use this client to register a user
 	return ca_client.register(req , admin_ca);
 })
@@ -352,5 +311,4 @@ ca_client.enroll(admin_enroll_param)
 
 
 // 
-*/
 
